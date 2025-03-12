@@ -1,9 +1,11 @@
 package com.inn.bakery.rest;
 
 import com.inn.bakery.POJO.Product;
+import com.inn.bakery.dto.FileResponse;
 import com.inn.bakery.wrapper.ProductWrapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
@@ -31,5 +33,11 @@ public interface ProductRest {
 
     @GetMapping(path = "/getById/{id}")
     ResponseEntity<ProductWrapper> getProductById(@PathVariable Integer id);
+
+    @PostMapping("/images")
+   ResponseEntity<FileResponse> uploadFile(@RequestParam("file") MultipartFile file);
+
+    @GetMapping("/images/{filename}")
+    ResponseEntity<byte[]> getImage(@PathVariable String filename);
 
 }

@@ -67,6 +67,7 @@ public class ProductServiceImpl implements ProductService {
         } else {
             product.setStatus("true");
         }
+        product.setImagePath(requestMap.get("imagePath"));
         product.setCategory(category);
         product.setName(requestMap.get("name"));
         product.setFlavor(requestMap.get("flavor"));

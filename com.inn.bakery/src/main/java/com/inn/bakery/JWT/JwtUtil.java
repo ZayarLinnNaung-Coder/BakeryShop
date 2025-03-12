@@ -29,11 +29,18 @@ public class JwtUtil {
     // Extract any claims from the token using a custom claimsResolver function
     public <T> T extractClaims(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
+        if (claims == null || claims.isEmpty()) {
+            // Handle the case where claims are empty or null
+            return null; // or throw an exception, or return a default value
+        }
         return claimsResolver.apply(claims);
     }
 
     // Extract all claims from the token
     public Claims extractAllClaims(String token) {
+        if(token == null){
+            return null;
+        }
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
 
@@ -70,6 +77,9 @@ public class JwtUtil {
     // Validate the JWT token
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
+        if(username == null){
+            return true;
+        }
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 

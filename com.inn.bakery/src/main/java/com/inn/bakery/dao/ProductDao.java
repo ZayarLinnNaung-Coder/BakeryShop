@@ -12,13 +12,15 @@ import java.util.List;
 
 public interface ProductDao extends JpaRepository<Product, Integer> {
 
+    @Query("SELECT new com.inn.bakery.wrapper.ProductWrapper(p.id, p.imagePath, p.name, p.flavor, p.price, p.status, p.category.id, p.category.name) " +
+            "FROM Product p")
     List<ProductWrapper> getAllProduct();
 
     @Modifying
     @Transactional
     Integer updateProductStatus(@Param("status") String status, @Param("id") Integer id);
 
-    @Query("SELECT new com.inn.bakery.wrapper.ProductWrapper(p.id, p.name, p.flavor, p.price, p.status, p.category.id, p.category.name) " +
+    @Query("SELECT new com.inn.bakery.wrapper.ProductWrapper(p.id, p.imagePath, p.name, p.flavor, p.price, p.status, p.category.id, p.category.name) " +
             "FROM Product p WHERE p.category.id = :id")
     List<ProductWrapper> getProductsByCategoryId(@Param("id") Integer id);
 

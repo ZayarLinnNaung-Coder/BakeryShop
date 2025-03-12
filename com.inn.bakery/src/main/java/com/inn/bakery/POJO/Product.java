@@ -39,6 +39,9 @@ public class Product implements Serializable {
     @Column(name = "flavor")
     private String flavor;
 
+    @Column(name = "imagePath")
+    private String imagePath;
+
     @Column(name = "price")
     private Integer price;
 
