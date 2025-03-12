@@ -63,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
 
         Product product = new Product();
         if (isAdd){
-            product.setId(Integer.parseInt(requestMap.get("productId")));
+            product.setId(Integer.parseInt(requestMap.get("id")));
         } else {
             product.setStatus("true");
         }
@@ -151,7 +151,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ResponseEntity<List<ProductWrapper>> getByCategory(Integer id) {
         try {
-            return new ResponseEntity<>(productDao.getProductByCategory(id), HttpStatus.OK);
+            return new ResponseEntity<>(productDao.getProductsByCategoryId(id), HttpStatus.OK);
         }catch (Exception ex){
             ex.printStackTrace();
         }
