@@ -98,8 +98,8 @@ public class UserServiceImpl implements UserService {
                 var userDetails = customerUsersDetailsService.getUserDetail();
                 if ("true".equalsIgnoreCase(userDetails.getStatus())) {
                     String token = jwtUtil.generateToken(userDetails.getEmail(), userDetails.getRole());
-                    String responseJson = String.format("{\"token\":\"%s\", \"email\":\"%s\", \"role\":\"%s\"}",
-                            token, userDetails.getEmail(), userDetails.getRole());
+                    String responseJson = String.format("{\"token\":\"%s\", \"email\":\"%s\", \"role\":\"%s\", \"contactNumber\":\"%s\", \"name\":\"%s\"}",
+                            token, userDetails.getEmail(), userDetails.getRole(), userDetails.getContactNumber(), userDetails.getName());
                     return new ResponseEntity<>(responseJson, HttpStatus.OK);
                 } else {
                     return new ResponseEntity<>("{\"message\":\"Wait for admin approval.\"}", HttpStatus.BAD_REQUEST);
