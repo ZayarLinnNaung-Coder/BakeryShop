@@ -94,23 +94,23 @@ public class UserServiceImpl implements UserService {
             Authentication auth = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(requestMap.get("email"), requestMap.get("password"))
             );
-            if(auth.isAuthenticated()) {
-                if(customerUsersDetailsService.getUserDetail().getStatus().equalsIgnoreCase("true")) {
-                    return new ResponseEntity<>("{\"token\":\""+
-                            jwtUtil.generateToken(customerUsersDetailsService.getUserDetail().getEmail(),
-                                    customerUsersDetailsService.getUserDetail().getRole())+ "\"}",
-                            HttpStatus.OK);
+            if (auth.isAuthenticated()) {
+                var userDetails = customerUsersDetailsService.getUserDetail();
+                if ("true".equalsIgnoreCase(userDetails.getStatus())) {
+                    String token = jwtUtil.generateToken(userDetails.getEmail(), userDetails.getRole());
+                    String responseJson = String.format("{\"token\":\"%s\", \"email\":\"%s\", \"role\":\"%s\"}",
+                            token, userDetails.getEmail(), userDetails.getRole());
+                    return new ResponseEntity<>(responseJson, HttpStatus.OK);
                 } else {
-                    return new ResponseEntity<String>("{\"message\":\""+"Wait for admin approval."+"\"}",
-                            HttpStatus.BAD_REQUEST);
+                    return new ResponseEntity<>("{\"message\":\"Wait for admin approval.\"}", HttpStatus.BAD_REQUEST);
                 }
             }
-        } catch (Exception ex){
-            log.error("{}",ex);
+        } catch (Exception ex) {
+            log.error("{}", ex);
         }
-        return new ResponseEntity<String>("{\"message\":\""+"Bad Credentials."+"\"}",
-                HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("{\"message\":\"Bad Credentials.\"}", HttpStatus.BAD_REQUEST);
     }
+
 
     @Override
     public ResponseEntity<List<UserWrapper>> getAllUser() {
