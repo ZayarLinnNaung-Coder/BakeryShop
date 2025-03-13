@@ -94,14 +94,26 @@ public class BillServiceImpl implements BillService {
         log.info("Inside addRows");
         table.addCell((String) data.get("name"));
         table.addCell((String) data.get("category"));
-        table.addCell((String) data.get("quantity"));
-        table.addCell(Double.toString((Double)data.get("price")));
-        table.addCell(Double.toString((Double)data.get("total")));
+
+        // Check the type of quantity and cast accordingly
+        Object quantityObj = data.get("quantity");
+        if (quantityObj instanceof String) {
+            table.addCell((String) quantityObj);
+        } else if (quantityObj instanceof Double) {
+            // Convert Double to Integer and then to String
+            int quantityInt = ((Double) quantityObj).intValue();
+            table.addCell(Integer.toString(quantityInt));
+        } else {
+            table.addCell(""); // Handle the case where quantity is neither String nor Double
+        }
+
+        table.addCell(Double.toString((Double) data.get("price")));
+        table.addCell(Double.toString((Double) data.get("total")));
     }
 
     private void addTableHeader(PdfPTable table) {
         log.info("Inside addTableHeader");
-        Stream.of("Name", "Category", "Quantity", "Sub Total")
+        Stream.of("Name", "Category", "Quantity", "Price", "Sub Total")
                 .forEach(columnTitle -> {
                     PdfPCell header = new PdfPCell();
                     header.setBackgroundColor(BaseColor.LIGHT_GRAY);
