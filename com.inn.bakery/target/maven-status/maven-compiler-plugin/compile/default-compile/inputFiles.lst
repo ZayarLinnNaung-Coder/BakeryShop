@@ -13,6 +13,7 @@
 /Users/zayarlinnnaung/Documents/Projects/Thesis/bakery/BakeryShop/com.inn.bakery/src/main/java/com/inn/bakery/dao/CategoryDao.java
 /Users/zayarlinnnaung/Documents/Projects/Thesis/bakery/BakeryShop/com.inn.bakery/src/main/java/com/inn/bakery/dao/ProductDao.java
 /Users/zayarlinnnaung/Documents/Projects/Thesis/bakery/BakeryShop/com.inn.bakery/src/main/java/com/inn/bakery/dao/UserDao.java
+/Users/zayarlinnnaung/Documents/Projects/Thesis/bakery/BakeryShop/com.inn.bakery/src/main/java/com/inn/bakery/dto/FileResponse.java
 /Users/zayarlinnnaung/Documents/Projects/Thesis/bakery/BakeryShop/com.inn.bakery/src/main/java/com/inn/bakery/rest/BillRest.java
 /Users/zayarlinnnaung/Documents/Projects/Thesis/bakery/BakeryShop/com.inn.bakery/src/main/java/com/inn/bakery/rest/CategoryRest.java
 /Users/zayarlinnnaung/Documents/Projects/Thesis/bakery/BakeryShop/com.inn.bakery/src/main/java/com/inn/bakery/rest/DashboardRest.java
