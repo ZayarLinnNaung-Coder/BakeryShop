@@ -17,7 +17,7 @@ def get_recommendations(id):
             return jsonify({
                 'status': 'success',
                 'customer_id': id,
-                'recommended products': recommendations
+                'recommended_products': recommendations
             })
         else:
             return jsonify({

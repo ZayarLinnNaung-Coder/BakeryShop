@@ -19,7 +19,7 @@ def getRecommendation(id):
 
     ### Step 1: Extract Product Data
     product_query = """
-        SELECT p.id, p.name, c.id As categoryId, c.name AS category, p.flavor, p.price
+        SELECT p.id, p.name, p.image_path As imagePath, c.id As categoryId, c.name AS category, p.flavor, p.price
         FROM product p
         JOIN category c ON p.category_fk = c.id;
     """
@@ -114,11 +114,13 @@ def getRecommendation(id):
 
     for product_id in recs:
         # Get product details
-        product_info = product_df[product_df['id'] == product_id][['name', 'categoryId', 'category', 'flavor']]
+        product_info = product_df[product_df['id'] == product_id][['name', 'imagePath', 'categoryId', 'category', 'flavor', 'price']]
         product_name = product_info['name'].values[0]
+        image_path = product_info['imagePath'].values[0]
         category_id = int(product_info['categoryId'].values[0])
         category_name = product_info['category'].values[0]
         flavor_name = product_info['flavor'].values[0]
-        recommend.append({"id": product_id, "name": product_name, "category_id": category_id, "category": category_name, "flavor": flavor_name})
+        price = float(product_info['price'].values[0])
+        recommend.append({"id": product_id, "image_path": image_path, "name": product_name, "category_id": category_id, "category": category_name, "flavor": flavor_name, "price": price})
 
     return recommend
